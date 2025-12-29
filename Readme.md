@@ -47,7 +47,7 @@ missing packages yourself.
 
 ### Rust
 This fork includes a [Rust submodule](https://github.com/project-slippi/slippi-rust-extensions) that needs to be built and linked to the final executable.
-This means that you will need to install a Rust compiler for your current system; to do this, simply visit 
+This means that you will need to install a Rust compiler for your current system; to do this, simply visit
 [rustup.rs](https://rustup.rs). Once installed, CMake should be able to automatically handle the rest for you. Installing rust via your distro's package manager is workable but we only support rustup since it handles multi toolchain installs better.
 
 ### Windows
@@ -70,7 +70,7 @@ The "Debug" solution configuration is significantly slower, more verbose and les
 Dolphin requires [CMake 3](https://cmake.org/) for systems other than Windows. CMake 4 is unsupported at this time.
 You need a recent version of GCC or Clang with decent c++20 support. CMake will
 inform you if your compiler is too old.
-Many libraries are bundled with Dolphin and used if they're not installed on 
+Many libraries are bundled with Dolphin and used if they're not installed on
 your system. CMake will inform you if a bundled library is used or if you need
 to install any missing packages yourself. You may refer to the [wiki](https://github.com/dolphin-emu/dolphin/wiki/Building-for-Linux) for more information.
 
@@ -108,7 +108,7 @@ To install to your system.
 
 1. `mkdir build`
 2. `cd build`
-3. `cmake ..`
+3. `cmake -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DUSE_SYSTEM_FMT=OFF ..`
 4. `make -j $(nproc)`
 5. `sudo make install`
 
@@ -133,6 +133,17 @@ Or useful for having multiple distinct Dolphin setups for testing/development/TA
 4. `make`
 5. `cp -r ../Overwrite/{Sys,User} Binaries/`
 6. `touch Binaries/portable.txt`
+
+### AppImage Install Steps:
+
+Bundling as an app image:
+1. Ensure Qt6 dev tools (including qmake6) are installed
+  - Arch: sudo pacman -S qt6-base qt6-tools
+2. Verify qmake6 is present
+   which qmake6
+   qmake6 -query QT_INSTALL_PREFIX
+3. Run the script with Qt6 selected
+   QMAKE="$(command -v qmake6)" QT_SELECT=qt6 ./build-appimage.sh
 
 ## Uninstalling
 
